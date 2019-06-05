@@ -3,5 +3,6 @@
 
 - My coding template added
 - My full coding template added
-- Palindrome tree lower added(works only for lowercase strings)
-- Palindrome tree added(works for all strings)
+- Palindromic tree lower added(works only for lowercase strings)
+- Palindromic tree added(works for all strings)
+- KMP added
