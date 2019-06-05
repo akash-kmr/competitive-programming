@@ -9,14 +9,11 @@ using namespace std;
 struct PalindromicTree{
     struct Node{
         int len;
-        int next[26];
         int depth;
         int suff; //suffix link
-        Node(){
-            for(auto &v : next) v = -1;
-        }
+        map<char, int> next;
+        Node() : len(0), depth(0), suff(0){}
     };
-
     string s;
     int ans;
     int len;
@@ -26,11 +23,6 @@ struct PalindromicTree{
         ans = 0;
         node.assign(len+10, Node());
         node[0].len = -1;
-        node[0].depth = 0;
-        node[0].suff = 0;
-        node[1].len = 0;
-        node[1].depth = 0;
-        node[1].suff = 0;
         curr = 1;
         sz = 2;
         for(int i=0; i<len; i++){
@@ -40,10 +32,10 @@ struct PalindromicTree{
                 if(i-node[curr].len-1>=0&&s[i-node[curr].len-1]==ch) break;
                 curr = node[curr].suff;
             }
-            if(node[curr].next[ch-'a']!=-1) curr = node[curr].next[ch-'a'];
+            if(node[curr].next.find(ch)!=node[curr].next.end()) curr = node[curr].next[ch];
             else{
                 int tmp = node[curr].suff;
-                node[curr].next[ch-'a'] = sz;
+                node[curr].next[ch] = sz;
                 node[sz].len = node[curr].len + 2;
                 node[sz].depth = node[curr].depth + 1;
                 curr = sz;
@@ -51,12 +43,12 @@ struct PalindromicTree{
                 else{
                     while(1){
                         if(tmp==0) break;
-                        if(node[tmp].next[ch-'a']!=-1){
+                        if(node[tmp].next.find(ch)!=node[curr].next.end()){
                             if(i - node[tmp].len - 1>=0&&s[i - node[tmp].len - 1]==ch) break;
                         }
                         tmp = node[tmp].suff;
                     }
-                    tmp = node[tmp].next[ch-'a'];
+                    tmp = node[tmp].next[ch];
                     node[sz].suff = tmp;
                 }
                 sz++;
