@@ -1,8 +1,8 @@
 struct kmp{
     string pattern;
     int m;
-    vector<int > pi; //Note that pi[i] here represents the length of longest proper suffix which is also a prefix of index i-1.
-    kmp(string Pattern) : pattern(Pattern){ //Constructer
+    vector<int > pi; //Note that pi[i] here represents the length of longest proper suffix ending at index i-1 which is also a prefix.
+    kmp(string Pattern) : pattern(Pattern){
         m = pattern.size();
         pi.resize(m+1);
         pi[0] = -1;
